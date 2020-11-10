@@ -25,3 +25,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Do not commit generated files in the coverage directory
+coverage/*
+
+/lib/tasks/auto_annotate_models.rake
