@@ -66,3 +66,7 @@ RAILS_ENV=test rails db:migrate
 ```sh
 rspec
 ```
+# Referências utilizadas
+
+[1° Criar docker-compose para rails](https://docs.docker.com/compose/rails/)  
+[2° Como gerenciar as permissões (autorização) no Rails usando o Devise + CanCanCan](https://onebitcode.com/permissoes-de-acesso-rails-usando-devise-e-cancancan/)  

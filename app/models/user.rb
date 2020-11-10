@@ -31,4 +31,8 @@ class User < ApplicationRecord
    }
 
    enum role: ROLES
+
+   def admin?
+    self.role == "administrator"
+  end
 end
