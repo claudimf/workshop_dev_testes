@@ -68,5 +68,8 @@ rspec
 ```
 # Referências utilizadas
 
-[1° Criar docker-compose para rails](https://docs.docker.com/compose/rails/)  
+[1° Criar docker-compose para Ruby on Rails](https://docs.docker.com/compose/rails/)  
 [2° Como gerenciar as permissões (autorização) no Rails usando o Devise + CanCanCan](https://onebitcode.com/permissoes-de-acesso-rails-usando-devise-e-cancancan/)  
+[3° Documentação do Rspec no Relishapp](https://relishapp.com/rspec)  
+[4° Documentação do Rspec no RubyDoc](https://rubydoc.info/gems/rspec-rails/frames)  
+[5° Better Specs for Rspec in Ruby on Rails](https://rubydoc.info/gems/rspec-rails/frames)
