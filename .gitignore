@@ -30,3 +30,6 @@
 coverage/*
 
 /lib/tasks/auto_annotate_models.rake
+
+# Ignore tests
+test/*
