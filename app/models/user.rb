@@ -30,7 +30,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
-  validates :role, :email, presence: true
+  validates :role, presence: true
 
    ROLES = {
      administrator: 0,
