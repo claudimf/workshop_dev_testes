@@ -37,13 +37,40 @@ docker-compose run --rm web bash
 Para acessar a instância do banco de dados, execute:
 
 ```sh
-docker exec-it [nome do db] bash
+docker exec -it [nome do db] bash
 ```
 
 Para derrubar e subir a instância do docker novamente, execute:
 
 ```sh
 docker-compose down && docker-compose up
+```
+# Popular o banco
+Acesse o container da aplicação, execute:
+
+```sh
+docker-compose run --rm web bash
+```
+## Apagar banco existente, criar, rodar migrações e popular o banco
+
+Dentro do container da aplicação, execute:
+
+```sh
+rails db:reset
+```
+## Criar, rodar migrações e popular o banco
+
+Dentro do container da aplicação, execute:
+
+```sh
+rails db:setup
+```
+## Em um banco recém criado
+
+Dentro do container da aplicação, execute:
+
+```sh
+rails db:seed
 ```
 
 🚀 :clap: Para visualizar o sistema basta acessar no navegador no endereço: [localhost:3000](localhost:3000)
