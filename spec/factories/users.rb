@@ -32,4 +32,20 @@ FactoryBot.define do
     active true
     role :administrator
   end
+
+  factory :user_administrator, class: User do
+    sequence(:email) {|n| "admin#{n}@teste.com"}
+    sequence(:password) {|n| "admin#{"%08d" % n}"}
+    sequence(:name) {|n| "Administrador n° #{n}"}
+    active true
+    role :administrator
+  end
+
+  factory :user_general, class: User do
+    sequence(:email) {|n| "user#{n}@teste.com"}
+    sequence(:password) {|n| "user#{"%08d" % n}"}
+    sequence(:name) {|n| "Usuário n° #{n}"}
+    active true
+    role :user
+  end
 end

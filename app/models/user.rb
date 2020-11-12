@@ -43,4 +43,8 @@ class User < ApplicationRecord
    def admin?
     self.role == "administrator"
   end
+
+  def permissions
+    Ability.new(self).permissions
+  end
 end
