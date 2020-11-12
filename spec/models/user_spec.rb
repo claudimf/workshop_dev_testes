@@ -28,65 +28,78 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'Creating user,' do
-    context ' should not be valid' do
-      let!(:user) { build(:user, email: nil, role: nil)}
-      let!(:user_2) { build(:user)}
+  context 'Validations just with "Rspec matchers"' do
+    describe 'Creating user,' do
+      context ' should not be valid' do
+        let!(:user) { build(:user, email: nil, role: nil)}
+        let!(:user_2) { build(:user)}
 
-      before(:each) do
-        user.valid?
+        before(:each) do
+          user.valid?
+        end
+
+        it ' without email and role' do
+          expect(user).to_not be_valid
+        end
+        it ' without email and return message' do
+          expect(user.errors.messages[:email].size).to eq(1)
+          expect(user.errors.messages[:email].first).to_not be("can't be blank")
+        end
+        it ' without role' do
+          expect(user.errors.messages[:role].size).to eq(1)
+          expect(user.errors.messages[:role].first).to_not be("can't be blank")
+        end
+
+        context ' without a valid role' do
+          let!(:invalid_role) { (:teste) }
+          it ' get an ArgumentError' do
+            expect { user_2.role = invalid_role }.to raise_error(ArgumentError)
+          end
+
+          it ' get an ArgumentError' do
+            expect { user_2.role = invalid_role }.to raise_error(an_instance_of(ArgumentError).and having_attributes(message: "'#{invalid_role}' is not a valid role"))
+          end
+        end
       end
 
-      it ' without email and role' do
+      context ' should be valid' do
+        let!(:user) { build(:user, email: "teste@teste.com", role: :administrator)}
+
+        before(:each) do
+          user.valid?
+        end
+
+        it ' with email and role' do
+          expect(user).to be_valid
+        end
+        it ' with email and role and return any messages' do
+          expect(user.errors.messages).to be_blank
+        end
+      end
+    end
+    describe 'Updating user, should not be valid ' do
+      let!(:user) { create(:user)}
+
+      it ' without email' do
+        user.email = nil
         expect(user).to_not be_valid
       end
-      it ' without email and return message' do
-        expect(user.errors.messages[:email].size).to eq(1)
-        expect(user.errors.messages[:email].first).to_not be("can't be blank")
-      end
+
       it ' without role' do
-        expect(user.errors.messages[:role].size).to eq(1)
-        expect(user.errors.messages[:role].first).to_not be("can't be blank")
-      end
-
-      context ' without a valid role' do
-        let!(:invalid_role) { (:teste) }
-        it ' get an ArgumentError' do
-          expect { user_2.role = invalid_role }.to raise_error(ArgumentError)
-        end
-
-        it ' get an ArgumentError' do
-          expect { user_2.role = invalid_role }.to raise_error(an_instance_of(ArgumentError).and having_attributes(message: "'#{invalid_role}' is not a valid role"))
-        end
-      end
-    end
-
-    context ' should be valid' do
-      let!(:user) { build(:user, email: "teste@teste.com", role: :administrator)}
-
-      before(:each) do
-        user.valid?
-      end
-
-      it ' with email and role' do
-        expect(user).to be_valid
-      end
-      it ' with email and role and return any messages' do
-        expect(user.errors.messages).to be_blank
+        user.role = nil
+        expect(user).to_not be_valid
       end
     end
   end
-  describe 'Updating user, should not be valid ' do
-    let!(:user) { create(:user)}
 
-    it ' without email' do
-      user.email = nil
-      expect(user).to_not be_valid
-    end
+  context 'Validations with "shoulda_matchers"' do
+    describe 'Building user,' do
+      subject { build(:user) }
 
-    it ' without role' do
-      user.role = nil
-      expect(user).to_not be_valid
+      it { should validate_presence_of(:email) }
+      it { should validate_presence_of(:role) }
+      it { should validate_uniqueness_of(:email).case_insensitive }
     end
   end
+
 end

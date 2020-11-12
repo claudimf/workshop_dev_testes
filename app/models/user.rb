@@ -31,6 +31,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   validates :role, presence: true
+  validates :email, uniqueness: true
 
    ROLES = {
      administrator: 0,
